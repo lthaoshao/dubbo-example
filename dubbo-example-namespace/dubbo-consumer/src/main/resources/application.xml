@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:dubbo="http://dubbo.apache.org/schema/dubbo" xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
+       http://dubbo.apache.org/schema/dubbo
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--应用名称, 用于计算依赖关系-->
+    <dubbo:application name="dubbo-example-namespace-consumer" logger="slf4j"/>
+
+    <!--注册中心地址-->
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" file="dubbo/dubbo-registry/dubbo.cache"/>
+
+    <dubbo:protocol name="dubbo" port="20880"/>
+
+    <dubbo:reference id="tradeServiceFacade" interface="com.lthaoshao.dubbo.api.TradeServiceFacade"/>
+
+    <bean id="orderServiceImpl" class="com.lthaoshao.dubbo.service.OrderServiceImpl"/>
+    <context:component-scan base-package="com.lthaoshao.dubbo.api"/>
+</beans>
