@@ -5,19 +5,26 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-4.3.xsd
        http://dubbo.apache.org/schema/dubbo
-       http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+       http://dubbo.apache.org/schema/dubbo/dubbo.xsd http://www.springframework.org/schema/context
+       http://www.springframework.org/schema/context/spring-context.xsd">
 
 
     <!--应用名称, 用于计算依赖关系-->
     <dubbo:application name="dubbo-example-namespace-consumer" logger="slf4j"/>
 
     <!--注册中心地址-->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181" file="tmp/dubbo/dubbo-registry/dubbo.cache"/>
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
 
     <dubbo:protocol name="dubbo" port="20880"/>
 
     <dubbo:reference id="tradeServiceFacade" interface="com.lthaoshao.dubbo.api.TradeServiceFacade"/>
 
+
+    <!--开启注解, 要下使用@Autowired等注解, 必须激活此配置-->
+    <!--<context:annotation-config/>-->
+    <!--开启自动扫描, 包含了 anootation-config 的效果-->
+    <context:component-scan base-package="com.lthaoshao.dubbo"/>
+
+    <!--开启扫描后, 可以在Serivce实现上配置@Service等注解, 也可以继续采用bean标签配置的形式-->
     <bean id="orderServiceImpl" class="com.lthaoshao.dubbo.service.OrderServiceImpl"/>
-    <context:component-scan base-package="com.lthaoshao.dubbo.api"/>
 </beans>
