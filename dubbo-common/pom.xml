@@ -15,6 +15,12 @@
         <module>dubbo-api</module>
     </modules>
 
-
+    <dependencies>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <scope>compile</scope>
+        </dependency>
+    </dependencies>
 
 </project>

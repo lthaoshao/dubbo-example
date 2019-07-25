@@ -10,17 +10,24 @@
 
 
     <!--应用名称, 用于计算依赖关系-->
-    <dubbo:application name="dubbo-example-namespace-consumer" logger="slf4j"/>
+    <dubbo:application name="dubbo-example-namespace-consumer" logger="slf4j" >
+        <dubbo:parameter key="qos.enable" value="true"/>
+        <dubbo:parameter key="qos.accept.foreign.ip" value="false"/>
+        <dubbo:parameter key="qos.port" value="33333"/>
+    </dubbo:application>
 
     <!--注册中心地址-->
-    <dubbo:registry address="zookeeper://127.0.0.1:2181" />
+    <dubbo:registry address="zookeeper://127.0.0.1:2181" file="tmp/dubbo/dubbo-consumer"/>
 
-    <dubbo:protocol name="dubbo" port="20880"/>
+    <dubbo:protocol name="rest" port="20880"/>
+    <!--<dubbo:protocol name="webservice" port="8088" server="jetty"/>-->
+    <!--<dubbo:protocol name="rest" port="8090" server="jetty"/>-->
 
-    <dubbo:reference id="tradeServiceFacade" interface="com.lthaoshao.dubbo.api.TradeServiceFacade"/>
+    <dubbo:reference id="tradeServiceFacade" interface="com.lthaoshao.dubbo.api.TradeServiceFacade"
+                     check="false" retries="0" />
 
 
-    <!--开启注解, 要下使用@Autowired等注解, 必须激活此配置-->
+    <!--开启注解, 要使用@Autowired等注解, 必须激活此配置-->
     <!--<context:annotation-config/>-->
     <!--开启自动扫描, 包含了 anootation-config 的效果-->
     <context:component-scan base-package="com.lthaoshao.dubbo"/>
